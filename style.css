@@ -1,19 +1,23 @@
-html {
-  font-family: sans-serif;
-}
-
 body {
-  width: 50%;
-  max-width: 800px;
-  min-width: 480px;
-  margin: 0 auto;
+  font-family: helvetica, sans-serif;
+  width: 350px;
 }
 
-.form input[type="number"] {
-  width: 200px;
+label {
+  font-weight: bold;
 }
 
-.lastResult {
-  color: white;
-  padding: 3px;
+div {
+  padding-bottom: 20px;
+}
+
+input[type="text"] {
+  padding: 5px;
+  width: 150px;
+}
+
+p {
+  background: #ffc125;
+  color: #5e2612;
+  padding: 10px;
 }
