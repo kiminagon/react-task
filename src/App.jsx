@@ -4,6 +4,9 @@ export default function App() {
   const [showStory, setShowStory] = useState(false);
   const [name, setName] = useState("Bob");
   const [isUK, setIsUK] = useState(false);
+  const [xItem, setXItem]= useState();
+  const [yItem, setYItem]= useState();
+  const [zItem, setZItem]= useState();
   const [temperatureUnit, setTemperatureUnit] = useState("fahrenheit");
   const [temperature, setTemperature] = useState(94);
   const [weightUnit, setWeightUnit] = useState("pounds");
@@ -14,9 +17,21 @@ export default function App() {
     return array[random];
   }
 
-  function handleClick() {
-    const inputName = document.getElementById("customname").value;
-    setName(inputName);
+  function radioClickUS(){
+    setIsUK(false);
+  }
+  function radioClickUK(){
+    setIsUK(true);
+  }
+
+  function handleClick(event) {
+    event.preventDefault();
+    const inputName = document.getElementById("customname");
+    setName(inputName.value);
+    
+    setXItem(randomValueFromArray(insertX));
+    setYItem(randomValueFromArray(insertY));
+    setZItem(randomValueFromArray(insertZ));
 
     setShowStory(true);
 
@@ -33,32 +48,27 @@ export default function App() {
     }
   }
 
-  function handleUKRadioChange() {
-    setIsUK(!isUK);
-  }
-
   const insertX = ['Willy the Goblin', 'Big Daddy', 'Father Christmas'];
   const insertY = ['the soup kitchen', 'Disneyland', 'the White House'];
   const insertZ = ['spontaneously combusted', 'melted into a puddle on the sidewalk', 'turned into a slug and crawled away'];
-  const xItem = randomValueFromArray(insertX);
-  const yItem = randomValueFromArray(insertY);
-  const zItem = randomValueFromArray(insertZ);
 
   return (
     <>
+    <form onSubmit={handleClick}>
       <div>
         <label htmlFor="customname">Enter custom name:</label>
-        <input type="text" id="customname" placeholder="" value={name} onChange={(e) => setName(e.target.value)} />
+        <input type="text" id="customname" placeholder=""/>
       </div>
       <div>
         <label htmlFor="us">US</label>
-        <input type="radio" id="us" value="us" checked={!isUK} onChange={handleUKRadioChange} />
+        <input type="radio"  id="us" name="usuk" value="us" checked={!isUK} onChange={radioClickUS}/>
         <label htmlFor="uk">UK</label>
-        <input type="radio" id="uk" value="uk" checked={isUK} onChange={handleUKRadioChange} />
+        <input type="radio"  id="uk" name="usuk" value="uk" checked={isUK} onChange={radioClickUK}/>
       </div>
       <div>
         <button onClick={handleClick}>Generate random story</button>
       </div>
+    </form>
       {showStory && (
         <p>
           It was {temperature} {temperatureUnit} outside, so {xItem} went for a walk. When they
